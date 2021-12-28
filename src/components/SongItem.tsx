@@ -7,6 +7,7 @@ interface SongItemProps {
   albumImage?: string;
   artist: string;
   song: string;
+  previewUrl: string;
 }
 
 const SongItem = ({
@@ -17,7 +18,14 @@ const SongItem = ({
 }: SongItemProps): JSX.Element => {
   return (
     <SongItemWrapper>
-      <ImagePlaceholder />
+      {albumImage ? (
+        <StyledImage
+          style={{ width: 50, height: 50 }}
+          source={{ uri: albumImage }}
+        />
+      ) : (
+        <ImagePlaceholder />
+      )}
       <ItemDetailsWrapper>
         <Text>{song}</Text>
         <Text>{artist}</Text>
@@ -27,6 +35,12 @@ const SongItem = ({
     </SongItemWrapper>
   );
 };
+const StyledImage = styled.Image`
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+`;
+
 const AnimationPlaceholder = styled.View`
   width: 50px;
   height: 50px;
