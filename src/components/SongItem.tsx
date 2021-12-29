@@ -1,5 +1,4 @@
 import React from "react";
-import { Text } from "react-native";
 import styled from "styled-components/native";
 
 interface SongItemProps {
@@ -27,14 +26,25 @@ const SongItem = ({
         <ImagePlaceholder />
       )}
       <ItemDetailsWrapper>
-        <Text>{song}</Text>
-        <Text>{artist}</Text>
-        <Text>{album}</Text>
+        <SongTitle>{song}</SongTitle>
+        <ArtistName>{artist}</ArtistName>
+        <AlbumName>{album}</AlbumName>
       </ItemDetailsWrapper>
       {true && <AnimationPlaceholder></AnimationPlaceholder>}
     </SongItemWrapper>
   );
 };
+
+const SongTitle = styled.Text`
+  color: ${({ theme }) => theme.primary};
+`;
+const ArtistName = styled.Text`
+  color: ${({ theme }) => theme.grey};
+`;
+const AlbumName = styled.Text`
+  color: ${({ theme }) => theme.darkGrey};
+`;
+
 const StyledImage = styled.Image`
   width: 50px;
   height: 50px;
@@ -60,7 +70,6 @@ const ItemDetailsWrapper = styled.View`
 `;
 
 const SongItemWrapper = styled.Pressable`
-  background-color: red;
   flex-direction: row;
   align-items: center;
 

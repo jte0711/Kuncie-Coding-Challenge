@@ -11,21 +11,24 @@ declare module "styled-components/native" {
     background: string;
     white: string;
     grey: string;
+    darkGrey: string;
   }
 }
 
 const lightTheme: DefaultTheme = {
-  primary: "#ff6f00",
-  background: "#ffffff",
-  white: "ffffff",
-  grey: "#e5e7eb",
+  primary: "#F5F6F7",
+  background: "#20252A",
+  white: "#ffffff",
+  grey: "#C1C0C8",
+  darkGrey: "#757575",
 };
 
 const darkTheme: DefaultTheme = {
-  primary: "#ff6f00",
-  background: "#ffffff",
-  white: "ffffff",
-  grey: "#e5e7eb",
+  primary: "#F5F6F7",
+  background: "#20252a",
+  white: "#ffffff",
+  grey: "#C1C0C8",
+  darkGrey: "#757575",
 };
 
 const ThemeWrapper = ({

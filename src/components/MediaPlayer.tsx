@@ -19,14 +19,14 @@ const IconPlaceholder = styled.Pressable`
   width: 50px;
   height: 50px;
 
-  background-color: green;
+  background-color: ${({ theme }) => theme.grey};
 `;
 
 const PlayPlaceholder = styled.Pressable`
   width: 50px;
   height: 50px;
 
-  background-color: red;
+  background-color: ${({ theme }) => theme.primary};
 `;
 
 const MPWrapper = styled.View`
@@ -36,7 +36,7 @@ const MPWrapper = styled.View`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: blue;
+  background-color: ${({ theme }) => theme.primary};
   position: absolute;
 
   bottom: 0px;

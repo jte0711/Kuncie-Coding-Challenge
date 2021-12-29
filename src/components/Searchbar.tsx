@@ -7,11 +7,11 @@ const SearchbarWrapper = (props: TextInputProps): JSX.Element => {
 };
 
 const Searchbar = styled.TextInput`
-  border-width: 1px;
-  border-color: grey;
-  border-radius: 10px;
+  border-radius: 100px;
+  background-color: ${({ theme }) => theme.primary};
 
-  padding: 10px;
+  padding-vertical: 5px;
+  padding-horizontal: 15px;
 `;
 
 export default SearchbarWrapper;

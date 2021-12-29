@@ -81,6 +81,8 @@ const Searchbar = styled(SearchbarWrapper)`
 const Screen = styled.SafeAreaView`
   margin-horizontal: 15px;
   height: 100%;
+
+  background-color: ${({ theme }) => theme.background};
 `;
 
 export default MainScreen;
