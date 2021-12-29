@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { FlatList, StatusBar, View, Text } from "react-native";
 import axios from "axios";
 
-import SearchbarWrapper from "@app/components/Searchbar";
+import Searchbar from "@app/components/Searchbar";
 import SongItem from "@app/components/SongItem";
 import MediaPlayer from "@app/components/MediaPlayer";
 
@@ -46,8 +46,8 @@ const MainScreen = () => {
 
   return (
     <Screen style={{ paddingTop: statusBarHeight + 15 }}>
-      <Searchbar
-        placeholder="Search"
+      <StyledSearchbar
+        placeholder="Search Artist"
         onSubmitEditing={(e) => onSearch(e.nativeEvent.text)}
       />
       <FlatList
@@ -74,7 +74,7 @@ const MainScreen = () => {
   );
 };
 
-const Searchbar = styled(SearchbarWrapper)`
+const StyledSearchbar = styled(Searchbar)`
   margin-bottom: 20px;
 `;
 
