@@ -21,6 +21,7 @@ interface Song {
 const MainScreen = () => {
   const statusBarHeight = StatusBar.currentHeight;
   const [searchResult, setSearchResult] = useState<Song>();
+  const [playing, setPlaying] = useState<number>(null);
 
   const onSearch = (searchTerm: string) => {
     const url = `https://itunes.apple.com/search?media=music&entity=song&attribute=artistTerm&term=${searchTerm}`;
@@ -35,7 +36,7 @@ const MainScreen = () => {
           collectionName: item.collectionName,
           trackId: item.trackId,
           trackName: item.trackName,
-          trackTimeMillis: item.tracktimeMillis,
+          trackTimeMillis: item.trackTimeMillis,
           previewUrl: item.previewUrl,
         } as Song;
       });
@@ -60,11 +61,16 @@ const MainScreen = () => {
         renderItem={({ item }) => {
           return (
             <SongItem
+              key={item.trackId}
               song={item.trackName}
               artist={item.artistName}
               album={item.collectionName}
               albumImage={item.artworkUrl60}
               previewUrl={item.previewUrl}
+              trackTime={item.trackTimeMillis}
+              trackId={item.trackId}
+              playing={playing === item.trackId}
+              setPlaying={setPlaying}
             />
           );
         }}

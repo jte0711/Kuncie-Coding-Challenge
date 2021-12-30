@@ -1,5 +1,6 @@
-import React from "react";
-import styled from "styled-components/native";
+import React, { Dispatch, useContext } from "react";
+import { BarIndicator } from "react-native-indicators";
+import styled, { ThemeContext } from "styled-components/native";
 
 interface SongItemProps {
   album: string;
@@ -7,6 +8,11 @@ interface SongItemProps {
   artist: string;
   song: string;
   previewUrl: string;
+  trackTime: number;
+  trackId: number;
+  playing: boolean;
+  setPlaying: Dispatch<number>;
+  onPress?: () => void;
 }
 
 const SongItem = ({
@@ -14,23 +20,36 @@ const SongItem = ({
   artist,
   album,
   albumImage,
+  trackId,
+  setPlaying,
+  playing,
 }: SongItemProps): JSX.Element => {
+  const theme = useContext(ThemeContext);
   return (
-    <SongItemWrapper>
+    <SongItemWrapper
+      onPress={() =>
+        setPlaying((id: number) => {
+          return id === trackId ? null : trackId;
+        })
+      }
+    >
       {albumImage ? (
-        <StyledImage
-          style={{ width: 50, height: 50 }}
-          source={{ uri: albumImage }}
-        />
+        <StyledImage source={{ uri: albumImage }} />
       ) : (
         <ImagePlaceholder />
       )}
       <ItemDetailsWrapper>
-        <SongTitle>{song}</SongTitle>
-        <ArtistName>{artist}</ArtistName>
-        <AlbumName>{album}</AlbumName>
+        <SongTitle numberOfLines={1}>{song}</SongTitle>
+        <ArtistName numberOfLines={1}>{artist}</ArtistName>
+        <AlbumName numberOfLines={1}>{album}</AlbumName>
       </ItemDetailsWrapper>
-      {true && <AnimationPlaceholder></AnimationPlaceholder>}
+      {playing ? (
+        <BarIndicator
+          color={theme.white}
+          size={20}
+          style={{ flex: 0, width: 50, height: 50 }}
+        />
+      ) : null}
     </SongItemWrapper>
   );
 };
@@ -48,15 +67,11 @@ const AlbumName = styled.Text`
 const StyledImage = styled.Image`
   width: 50px;
   height: 50px;
-  margin-right: 10px;
+  margin-right: 15px;
+
+  border-radius: 10px;
 `;
 
-const AnimationPlaceholder = styled.View`
-  width: 50px;
-  height: 50px;
-
-  background-color: green;
-`;
 const ImagePlaceholder = styled.View`
   width: 50px;
   height: 50px;
