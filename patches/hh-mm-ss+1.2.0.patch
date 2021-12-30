@@ -1,0 +1,13 @@
+diff --git a/node_modules/hh-mm-ss/index.js b/node_modules/hh-mm-ss/index.js
+index 2910f4b..3c0ef26 100644
+--- a/node_modules/hh-mm-ss/index.js
++++ b/node_modules/hh-mm-ss/index.js
+@@ -108,7 +108,7 @@ function formatTime (time, format) {
+       showHr = true
+       break
+     case 'mm:ss':
+-      showMs = !(!time.miliseconds)
++      showMs = (!time.miliseconds)
+       showSc = true
+       showHr = !(!time.hours)
+       break

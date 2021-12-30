@@ -1,4 +1,4 @@
-import React, { Dispatch, useContext } from "react";
+import React, { useContext } from "react";
 import { BarIndicator } from "react-native-indicators";
 import styled, { ThemeContext } from "styled-components/native";
 
@@ -11,7 +11,6 @@ interface SongItemProps {
   trackTime: number;
   trackId: number;
   playing: boolean;
-  setPlaying: Dispatch<number>;
   onPress?: () => void;
 }
 
@@ -20,19 +19,12 @@ const SongItem = ({
   artist,
   album,
   albumImage,
-  trackId,
-  setPlaying,
   playing,
+  onPress,
 }: SongItemProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   return (
-    <SongItemWrapper
-      onPress={() =>
-        setPlaying((id: number) => {
-          return id === trackId ? null : trackId;
-        })
-      }
-    >
+    <SongItemWrapper onPress={onPress}>
       {albumImage ? (
         <StyledImage source={{ uri: albumImage }} />
       ) : (

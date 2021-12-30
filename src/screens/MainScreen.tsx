@@ -21,7 +21,13 @@ interface Song {
 const MainScreen = () => {
   const statusBarHeight = StatusBar.currentHeight;
   const [searchResult, setSearchResult] = useState<Song>();
-  const [playing, setPlaying] = useState<number>(null);
+  const [pause, setPause] = useState<boolean>(false);
+  const [currentSong, setCurrentSong] = useState({
+    trackId: "",
+    trackName: "",
+    trackTime: 0,
+    trackRunningTime: 0,
+  });
 
   const onSearch = (searchTerm: string) => {
     const url = `https://itunes.apple.com/search?media=music&entity=song&attribute=artistTerm&term=${searchTerm}`;
@@ -54,7 +60,9 @@ const MainScreen = () => {
         />
         <FlatList
           data={searchResult}
-          contentContainerStyle={{ paddingBottom: playing ? 120 : 0 }}
+          contentContainerStyle={{
+            paddingBottom: currentSong.trackName !== "" ? 100 : 0,
+          }}
           ListEmptyComponent={() => (
             <View style={{ width: "100%", height: 50, backgroundColor: "red" }}>
               <Text>EMPTY LIST</Text>
@@ -71,14 +79,28 @@ const MainScreen = () => {
                 previewUrl={item.previewUrl}
                 trackTime={item.trackTimeMillis}
                 trackId={item.trackId}
-                playing={playing === item.trackId}
-                setPlaying={setPlaying}
+                playing={currentSong.trackId === item.trackId}
+                onPress={() => {
+                  setCurrentSong({
+                    trackId: item.trackId,
+                    trackName: item.trackName,
+                    trackTime: item.trackTimeMillis,
+                    trackRunningTime: null,
+                  });
+                }}
               />
             );
           }}
         />
       </Screen>
-      {playing && <MediaPlayer />}
+      {currentSong.trackName !== "" && (
+        <MediaPlayer
+          pause={pause}
+          setPause={setPause}
+          trackName={currentSong.trackName}
+          trackTime={currentSong.trackTime}
+        />
+      )}
     </>
   );
 };
