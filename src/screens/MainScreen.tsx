@@ -21,6 +21,7 @@ interface Song {
 const MainScreen = () => {
   const statusBarHeight = StatusBar.currentHeight;
   const [searchResult, setSearchResult] = useState<Song>();
+  const [searchTerm, setSearchTerm] = useState();
   const [pause, setPause] = useState<boolean>(false);
   const [currentSong, setCurrentSong] = useState({
     trackId: "",
@@ -56,7 +57,9 @@ const MainScreen = () => {
       <Screen style={{ paddingTop: statusBarHeight + 15 }}>
         <StyledSearchbar
           placeholder="Search Artist"
-          onSubmitEditing={(e) => onSearch(e.nativeEvent.text)}
+          onSubmitEditing={() => onSearch(searchTerm)}
+          value={searchTerm}
+          setSearchTerm={setSearchTerm}
         />
         <FlatList
           data={searchResult}
