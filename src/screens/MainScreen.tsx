@@ -46,37 +46,40 @@ const MainScreen = () => {
   };
 
   return (
-    <Screen style={{ paddingTop: statusBarHeight + 15 }}>
-      <StyledSearchbar
-        placeholder="Search Artist"
-        onSubmitEditing={(e) => onSearch(e.nativeEvent.text)}
-      />
-      <FlatList
-        data={searchResult}
-        ListEmptyComponent={() => (
-          <View style={{ width: "100%", height: 50, backgroundColor: "red" }}>
-            <Text>EMPTY LIST</Text>
-          </View>
-        )}
-        renderItem={({ item }) => {
-          return (
-            <SongItem
-              key={item.trackId}
-              song={item.trackName}
-              artist={item.artistName}
-              album={item.collectionName}
-              albumImage={item.artworkUrl60}
-              previewUrl={item.previewUrl}
-              trackTime={item.trackTimeMillis}
-              trackId={item.trackId}
-              playing={playing === item.trackId}
-              setPlaying={setPlaying}
-            />
-          );
-        }}
-      />
-      <MediaPlayer />
-    </Screen>
+    <>
+      <Screen style={{ paddingTop: statusBarHeight + 15 }}>
+        <StyledSearchbar
+          placeholder="Search Artist"
+          onSubmitEditing={(e) => onSearch(e.nativeEvent.text)}
+        />
+        <FlatList
+          data={searchResult}
+          contentContainerStyle={{ paddingBottom: playing ? 120 : 0 }}
+          ListEmptyComponent={() => (
+            <View style={{ width: "100%", height: 50, backgroundColor: "red" }}>
+              <Text>EMPTY LIST</Text>
+            </View>
+          )}
+          renderItem={({ item }) => {
+            return (
+              <SongItem
+                key={item.trackId}
+                song={item.trackName}
+                artist={item.artistName}
+                album={item.collectionName}
+                albumImage={item.artworkUrl60}
+                previewUrl={item.previewUrl}
+                trackTime={item.trackTimeMillis}
+                trackId={item.trackId}
+                playing={playing === item.trackId}
+                setPlaying={setPlaying}
+              />
+            );
+          }}
+        />
+      </Screen>
+      {playing && <MediaPlayer />}
+    </>
   );
 };
 
@@ -85,7 +88,7 @@ const StyledSearchbar = styled(Searchbar)`
 `;
 
 const Screen = styled.SafeAreaView`
-  margin-horizontal: 15px;
+  padding-horizontal: 15px;
   height: 100%;
 
   background-color: ${({ theme }) => theme.background};
