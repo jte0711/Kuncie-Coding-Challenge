@@ -8,7 +8,6 @@ interface SongItemProps {
   artist: string;
   song: string;
   previewUrl: string;
-  trackTime: number;
   trackId: number;
   playing: boolean;
   onPress?: () => void;
