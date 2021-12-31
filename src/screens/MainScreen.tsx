@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 
-import { FlatList, StatusBar, View, Text } from "react-native";
+import { FlatList, StatusBar, Image } from "react-native";
 import axios from "axios";
 
 import Searchbar from "@app/components/Searchbar";
@@ -68,9 +68,14 @@ const MainScreen = () => {
             paddingBottom: currentSong.trackName !== "" ? 100 : 0,
           }}
           ListEmptyComponent={() => (
-            <View style={{ width: "100%", height: 50, backgroundColor: "red" }}>
-              <Text>EMPTY LIST</Text>
-            </View>
+            <EmptyWrapper>
+              <EmptyPlaceholderImage
+                source={require("../../assets/Welcome.png")}
+              />
+              <EmptyPlaceholderText numberOfLines={2}>
+                Write an artist name to start the app
+              </EmptyPlaceholderText>
+            </EmptyWrapper>
           )}
           renderItem={({ item }) => {
             return (
@@ -110,6 +115,29 @@ const MainScreen = () => {
     </>
   );
 };
+
+const EmptyWrapper = styled.View`
+  width: 100%;
+  margin-top: 50px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme }) => theme.white};
+  border-radius: 20px;
+`;
+
+const EmptyPlaceholderText = styled.Text`
+  color: ${({ theme }) => theme.lightBackground};
+  font-size: 26px;
+  font-weight: 300;
+  max-width: 250px;
+  text-align: center;
+  padding-bottom: 20px;
+`;
+
+const EmptyPlaceholderImage = styled.Image`
+  width: 250px;
+  height: 350px;
+`;
 
 const StyledSearchbar = styled(Searchbar)`
   margin-bottom: 20px;
