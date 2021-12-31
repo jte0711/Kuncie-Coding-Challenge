@@ -10,7 +10,6 @@ interface MediaPlayerProps {
   pause: boolean;
   setPause: Dispatch<boolean>;
   trackName: string;
-  trackTime: number;
   previewUrl: string;
 }
 
@@ -18,7 +17,6 @@ const MediaPlayer = ({
   pause,
   setPause,
   trackName,
-  trackTime,
   previewUrl,
 }: MediaPlayerProps): JSX.Element => {
   const theme = useContext(ThemeContext);
