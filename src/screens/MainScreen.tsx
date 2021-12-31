@@ -27,6 +27,7 @@ const MainScreen = () => {
     trackId: "",
     trackName: "",
     trackTime: 0,
+    previewUrl: "",
     trackRunningTime: 0,
   });
 
@@ -88,6 +89,7 @@ const MainScreen = () => {
                     trackId: item.trackId,
                     trackName: item.trackName,
                     trackTime: item.trackTimeMillis,
+                    previewUrl: item.previewUrl,
                     trackRunningTime: null,
                   });
                 }}
@@ -102,6 +104,7 @@ const MainScreen = () => {
           setPause={setPause}
           trackName={currentSong.trackName}
           trackTime={currentSong.trackTime}
+          previewUrl={currentSong.previewUrl}
         />
       )}
     </>
