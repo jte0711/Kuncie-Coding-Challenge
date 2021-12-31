@@ -21,6 +21,7 @@ interface Song {
 const MainScreen = () => {
   const theme = useContext(ThemeContext);
   const statusBarHeight = StatusBar.currentHeight;
+
   const [searchResult, setSearchResult] = useState<Song>();
   const [searchTerm, setSearchTerm] = useState();
   const [pause, setPause] = useState<boolean>(false);
@@ -56,7 +57,6 @@ const MainScreen = () => {
   return (
     <>
       <StatusBar backgroundColor={theme.background} />
-
       <Screen style={{ paddingTop: statusBarHeight + 15 }}>
         <StyledSearchbar
           placeholder="Search Artist"
