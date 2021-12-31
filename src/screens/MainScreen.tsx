@@ -16,7 +16,6 @@ interface Song {
   previewUrl: string;
   trackId: number;
   trackName: string;
-  trackTimeMillis: number;
 }
 
 const MainScreen = () => {
@@ -28,7 +27,6 @@ const MainScreen = () => {
   const [currentSong, setCurrentSong] = useState({
     trackId: "",
     trackName: "",
-    trackTime: 0,
     previewUrl: "",
     trackRunningTime: 0,
   });
@@ -90,14 +88,12 @@ const MainScreen = () => {
                 album={item.collectionName}
                 albumImage={item.artworkUrl60}
                 previewUrl={item.previewUrl}
-                trackTime={item.trackTimeMillis}
                 trackId={item.trackId}
                 playing={currentSong.trackId === item.trackId}
                 onPress={() => {
                   setCurrentSong({
                     trackId: item.trackId,
                     trackName: item.trackName,
-                    trackTime: item.trackTimeMillis,
                     previewUrl: item.previewUrl,
                     trackRunningTime: null,
                   });
@@ -112,7 +108,6 @@ const MainScreen = () => {
           pause={pause}
           setPause={setPause}
           trackName={currentSong.trackName}
-          trackTime={currentSong.trackTime}
           previewUrl={currentSong.previewUrl}
         />
       )}
