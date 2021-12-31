@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components/native";
 
 import { FlatList, StatusBar, Image } from "react-native";
@@ -7,6 +7,7 @@ import axios from "axios";
 import Searchbar from "@app/components/Searchbar";
 import SongItem from "@app/components/SongItem";
 import MediaPlayer from "@app/components/MediaPlayer";
+import { ThemeContext } from "styled-components/native";
 
 interface Song {
   artistName: string;
@@ -19,6 +20,7 @@ interface Song {
 }
 
 const MainScreen = () => {
+  const theme = useContext(ThemeContext);
   const statusBarHeight = StatusBar.currentHeight;
   const [searchResult, setSearchResult] = useState<Song>();
   const [searchTerm, setSearchTerm] = useState();
@@ -55,6 +57,8 @@ const MainScreen = () => {
 
   return (
     <>
+      <StatusBar backgroundColor={theme.background} />
+
       <Screen style={{ paddingTop: statusBarHeight + 15 }}>
         <StyledSearchbar
           placeholder="Search Artist"
