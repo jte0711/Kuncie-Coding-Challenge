@@ -1,16 +1,17 @@
-import React, { Dispatch, useContext } from "react";
+import React, { Dispatch, useContext, useEffect, useState } from "react";
 import { View } from "react-native";
 import styled, { ThemeContext } from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import * as TimeFormat from "hh-mm-ss";
-// import ProgressBar from "react-native-progress/Bar";
 import { ProgressBar } from "react-native-paper";
+import { Audio } from "expo-av";
 
 interface MediaPlayerProps {
   pause: boolean;
   setPause: Dispatch<boolean>;
   trackName: string;
   trackTime: number;
+  previewUrl: string;
 }
 
 const MediaPlayer = ({
@@ -18,9 +19,46 @@ const MediaPlayer = ({
   setPause,
   trackName,
   trackTime,
+  previewUrl,
 }: MediaPlayerProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   const timeString = TimeFormat.fromMs(trackTime);
+  const [sound, setSound] = useState();
+  const [finished, setFinished] = useState(false);
+
+  const loadNewSong = async (url) => {
+    setPause(false);
+    const { sound } = await Audio.Sound.createAsync({ uri: url }, {}, (e) => {
+      if (e.didJustFinish) {
+        setPause(true);
+        setFinished(true);
+      }
+    });
+    setSound(sound);
+    await sound.playAsync();
+  };
+
+  const playPauseHandler = async () => {
+    if (pause) {
+      finished
+        ? await sound.setStatusAsync({ shouldPlay: true, positionMillis: 0 })
+        : await sound.playAsync();
+    } else {
+      await sound.pauseAsync();
+    }
+  };
+
+  useEffect(() => {
+    loadNewSong(previewUrl);
+  }, [trackName]);
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
 
   return (
     <MPWrapper>
@@ -35,9 +73,17 @@ const MediaPlayer = ({
       </SongDetails>
       <Ionicons
         color={theme.lightGreen}
-        name={pause ? "pause-circle" : "play-circle"}
+        name={pause ? "play-circle" : "pause-circle"}
         size={65}
-        onPress={() => setPause(!pause)}
+        onPress={() => {
+          if (pause) {
+            setPause(false);
+            playPauseHandler();
+          } else {
+            setPause(true);
+            playPauseHandler();
+          }
+        }}
       />
     </MPWrapper>
   );
