@@ -22,4 +22,4 @@
 
 ### How to Build
 
-### How to Deploy
+Because this is using Expo Managed Workflow, build needs to be done using EAS service. It means that you need an account to access that, so let me know if you need an apk build for this project.
